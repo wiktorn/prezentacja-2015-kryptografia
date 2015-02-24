@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Podstawy kryptografii dla każdego</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=792, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+    <style>
+        .slide pre code {
+            line-height: 1.75
+        }
+    </style>
+</head>
+<body class="list">
+    <header class="caption">
+        <h1>Podstawy kryptografii dla każdego</h1>
+        <p></p>
+    </header>
+
+    <section class="slide front-page">
+        <div>
+            <div class="logo">
+                <img src="pictures/front.png">
+            </div>
+            <div class="content">
+                <h2>Podstawy kryptografii dla każdego</h2>
+                <p>Autor: Wiktor Niesiobędzki</p>
+                <p><a href="http://creativecommons.org/licenses/by-sa/3.0/pl/">CC-BY-SA 3.0</a><br /><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Cele prezentacji</h2>
+            <ul>
+                <li>Przedstawienie krótko historii kryptografii</li>
+                <li>Po co zabezpieczać komunikację?</li>
+                <li>Zaprezentowanie podstawowych narzędzi kryptograficznych do wykorzystania w Waszych programach</li>
+                <li>Pokazanie, jak je wkomponować w swoje programy</li>
+                <li>Łamanie szyfru</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Historia kryptografii</h2>
+            <ul>
+                <li>Szyfr Cezara - jedna z pierwszych metod szyfrowania opierająca się na stałej tabeli podstawieniowej</li>
+                <li>Szyfr z kluczem jednorazowym - zaproponowany w 1917r. Wymaga klucza dłuższego niż wiadomosć, klucza można użyć tylko raz</li>
+                <li>Enigma - złożenie wielu (4-8) tablic podstawieniowych, przesuwanych co literę</li>
+                <li>Ostatnie 40 lat to dynamiczny rozwój kryptografii (w tym również teorii kryptografii)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Po co kryptografia</h2>
+            <ul>
+                <li>Ma chronić przed pewnymi atakami, ale nie wszystkimi:
+                    <ul>
+                        <li>Szantaż</li>
+                        <li>Przekupstwo</li>
+                        <li>Tortury</li>
+                    </ul>
+                </li>
+                <li>Zaatakowanie rzeczy jest łatwe (wskazują na to doniesienia Snowdena)</li>
+                <li>Komputer ani dane nie skarżą się na to, że są torturowane</li>
+                <li>Generalnie - ma na celu przekierowanie ataku z rzeczy (komputery, smartfony itp.), na człowieka, w nadziei, że instytucja uzna, że informacja nie jest aż tak istotna</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Co daje kryptografia</h2>
+            <ul>
+                <li>Podstawowe funkcje to: szyfrowanie, zapewnienie integralności oraz identyfikacja
+                    <ul>
+                        <li>Szyfrowanie - czyli zapobieganie odczytaniu wiadomości osobie postronnej</li>
+                        <li>Integralność - czyli zapobieganie modyfikacji wiadomości w sposób niezauważalny osobie postronnej</li>
+                        <li>Identyfikacja - czyli zapobieganie podszywaniu się</li>
+                    </ul>
+                </li>
+                <li>Dodatkowo też - poufność i integralność komunikacji, ale jednocześnie - anonimowość (w ograniczonym zakresie)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Podstawowe pojęcia</h2>
+            <ul>
+                <li><strong>tekst jawny</strong> - dane, które chcemy chronić</li>
+                <li><strong>szyfrogram, kryptogram</strong> - dane, które atakujący może zobaczyć (a nawet - modyfikować)</li>
+                <li><strong>klucz szyfru</strong> - informacja slużąca do zamiany tekstu jawnego w szyfrogram i vice versa</li>
+                <li><strong>symetryczna kryptografia</strong> - taka dziedzina algorytmów szyfrujących, w których klucz do szyfrowania i odszyfrowania jest taki sam</li>
+                <li><strong>asymetryczna kryptografia</strong> - taka dziedzina algorytmów szyfrująych, w których klucz do szyfrowania i odszyfrowania jest inny</li>
+                <li>idealne komponenty kryptografii nie istnieją, ale wystarcza nam nieodróżnialność danego komponentu od ideału przy prawdopodobieństiwe rzędu 1 / 2<sup>128</sup></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Funkcje hashujące</h2>
+            <ul>
+                <li>Funkcja H(x), która zamienia ciąg x dowolnej długości, w n-bitowy ciąg tak że:
+                    <ul>
+                        <li>funkcja jest odporna na kolizje, czyli potrzeba ok. 2<sup>n/2</sup> czasu by znaleźć dwa ciągi z takim samym wynikiem</li>
+                        <li>funkcja jest jednostronna, czyli potrzeba ok. 2<sup>n</sup> czasu by znaleźć ciąg, który daje określony wynik</li>
+                     </ul>
+                </li>
+                <li>Nic więcej nie jest gwarantowane, w szczególności - mając H(x), atakujący może obliczyć H(y), dla określonych y</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Funkcje hashujące</h2>
+            <ul>
+                <li>Hashowanie haseł jako metoda ochrony ich przed ich odtworzeniem nie jest rozwiązaniem - obecne procesory w kartach graficznych są w stanie liczyć ~milarda H(x) na sekundę</li>
+                <li>Wykorzystanie funkcji hashującej do zapewnienia integralności - to też zły pomysł - chyba że macie bezpieczny kanał, którym możecie przekazać wartość funkcji hashującej</li>
+                <li>Jako funkcji hashujących używajcie: SHA-256</li>
+                <li>Nie używajcie: MD2, MD4, MD5, SHA-1, RIPEMD</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Kod uwierzytelniający wiadomość</h2>
+            <ul>
+                <li>Funkcja MAC(k, x), która zamienia ciąg x dowolnej długości, w n-bitowy ciąg tak że:
+                    <ul>
+                        <li>potrzeba 2<sup>n</sup> czasu by wygenerować parę {y, MAC(k, y)}, nawet znając pary {x, MAC(k, x)}</li>
+                     </ul>
+                </li>
+                <li>Używajcie HMAC-SHA256</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Kod uwierzytelniający wiadomość</h2>
+            <ul>
+                <li>Pamiętajcie, by zapewnić, że dwie wiadomości o różnej treści, nie dawały takiego samego wejścia do funkcji MAC</li>
+                <li>Uważajcie na ataki kanałem postronnym (side channel attack), poprzez czas, czy kod błędu - żądanie powinno zajmować dokładnie tyle samo czasu, niezależnie od tego, w którym miejscu wiadomość została zmodyfikowana, czy który bajt MAC się nie zgadza</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Kod uwierzytelniający wiadomość</h2>
+            <ul>
+                <li>Idealne, gdy potrzebujecie przekazać coś przez osobę niezaufaną i mieć pewność, że w trakcie nie nastąpiła modyfikacja danych:
+                    <ul>
+                        <li>Podpisywanie przekazywanie do przeglądarki URL, który zawiera np. potwierdzenie płatności (przekierowanie od pośrednika płatności do sklepu internetowego)</li>
+                        <li>Wysyłanie tokenu do resetu hasła</li>
+                        <li>Podpisywanie wywołań API, realizowanych przez stronę trzecią</li>
+                     </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Szyfry blokowe</h2>
+            <ul>
+                <li>Do szyfrowania symetrycznego najczęściej wykorzystuje się szyfry blokowe</li>
+                <li>Szyfr blokowy operuje na blokach danych (np. 16 bajtów)</li>
+                <li>Funkcja szyfrująca - E(k, x) ma spełniać warunek, że znając {x, E(k, x)}, zgadnięcie {x', E(k, x')} jest zadaniem o złożoności 2<sup>n</sup>, gdzie n, to długość bloku w bitach</li>
+                <li>Do szyfrowania używajcie AES-256, Nie używajcie: blowfish, DES, 3DES</li>
+                <li>Nie używajcie szyfru blokowego saute, zawsze używajcie go w odpowiednim trybie</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Tryby szyfrów blokowych</h2>
+            <ul>
+                <li>Tryb szyfrowania mówi o tym, jak stosować szyfr blokowy dla długich strumieni danych</li>
+                <li>Jego zadaniem jest zapewnienie, by dopasować strumień danych do długości bloku (padding), oraz zapewnić, by taki sam ciąg danych, nie został zaszyfrowany do takiego samego szyfrogramu</li>
+                <li>Niektóre tryby wymagają podania IV (Initialization Vector) - jest to jeden z gwarantów bezpieczeństwa szyfrogramu, nie może być stały, natomiast nie jest wymagane, by pozostał tajny</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Tryby szyfrów blokowych</h2>
+            <ul>
+                <li>Korzystając z szyfru blokowego, korzystajcie z trybu CTR (Counter Mode)</li>
+                <li>Korzystajcie z HMAC-SHA256, by zapewnić integralność szyfrogramu</li>
+                <li>Zawsze weryfikujcie integralność danych, nim spróbujecie je zdeszyfrować, ochroni to przed wyciekiem informacji kanałem postronnym</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Asymteryczne zapewnienie integralności</h2>
+            <ul>
+                <li>Wykorzystuje dwa klucze - jeden do podpisu (szyfrowanie), drugi do weryfikacji (rozszyfrowanie). Klucz weryfikacyjny pozwala zweryfikować, czy wiadomość została podpisana poprzez powiązany z kluczem weryfikacyjnym klucz do podpisu</li>
+                <li>Asymetryczne zapewnienie integralności jest uznawane za złamane, gdy za pomocą klucza weryfikacyjnego można podpisać dowolną wiadomość, nawet jeśli atakujący ma możliwość uzyskania podpisu dowolnie wybranej wiadomości (różnej od tej, którą atakuje)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Asymteryczne zapewnienie integralności</h2>
+            <ul>
+                <li>Używajcie RSASSA-PSS, 2048-bitowych kluczy, publicznego wykładnika 65537 oraz SHA256</li>
+                <li>Nie używajcie: tego samego klucza do zapewnienie integralności i szyfrowania, DSA, podpisów z wykorzystaniem krzywych eliptycznych</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Asymteryczne szyfrowanie</h2>
+            <ul>
+                <li>Wykorzystuje dwa klucze - jeden do szyfrowania (klucz publiczny), drugi do rozszyfrowania (klucz prywatny) - odwrotnie niż w przypadku integralności!</li>
+                <li>Zwykle asymetryczna kryptografia jest kosztowna obliczeniowo i ma ograniczenia na długość wiadomości</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Asymteryczne szyfrowanie</h2>
+            <ul>
+                <li>Używajcie RSAES-OAEP, 2048-bitowych kluczy, publicznego wykładnika 65537, SHA256 oraz MFG1-SHA256</li>
+                <li>Generujcie losowy klucz do szyfrowania blokowego, zaszyfrujcie nim wiadomość, przekażcie wiadomość a klucz do jej rozszyfrowania zaszyfrujcie za pomocą szyfrowania asymetrycznego (tak m.in. działa SSL/TLS)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Hasła</h2>
+            <ul>
+                <li>Hasła, frazy (takie, które ma pamiętać człowiek) są często wykorzystywane do identyfikacji, a czasem do szyfrowania i zapewnienia integralności</li>
+                <li>Unikajcie haseł, gdzie sie da</li>
+                <li>Używajcie Key Derivation Function, by zamienić hasło w klucz najwcześniej jak się da</li>
+                <li>Używajcie funkcji scrypt, PBKDF2 lub bcrypt do zamiany hasła w klucz</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Hasła</h2>
+            <ul>
+                <li>KDF są to funkcje, które na bazie wprowadzonego wejścia, generują często szerszy klucz. Są zaprojektowane tak, by nie dało się ich łatwo zrównoleglić, ani wykonywać ich masowych obliczeń, nawet z wykorzystaniem dedykowanych układów</li>
+                <li>KDF wymaga podania "soli", która uniemożliwia wygenerowanie "tęczowych tablic" (tj. wartości funkcji KDF dla wszystkich możliwych wejść). Każde hasło powinno mieć inną wartość soli. Wartość soli wymaga takiej samej ochrony, jak ochrona klucza wygenerowanego z hasła</li>
+                <li>Nie używajcie szyfrowania lub hashowania haseł, bo te funkcje są zaprojektowane tak, by dawało się je wykonywać szybko, co ułatwia ataki brute-force</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Forward-Secrecy</h2>
+            <ul>
+                <li>Forward-Secrecy to zapewnienie, by komunikacja pozostała niejawna, nawet gdy klucz prywatny do szyfrowania asymetrycznego zostanie skompromitowany</li>
+                <li>Zamiast szyfrować klucz za pomocą asymetrycznego szyfrowania, można wykorzystać schemat Diffieg-Hellmana lub Krzywe Eliptyczne, które pozwalają ustalić klucz, nie ujawniając go postronnej osobie</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Forward-Secrecy</h2>
+            <ul>
+                <li>Istotne w przypadku takich dziur jak Heartbleed lub nacisków organizacji rządowych na udostępnienie prywatnego klucza RSA (np. case Lavabit.com)</li>
+                <li>W przypadku gdy agencja zapisała ruch zaszyfrowany, a następnie wymusiła udostępnienie klucza prywatnego, nadal nie może rozszyfrować treści. Tak samo, atakujący, który pozyskał klucz prywatny za pomocą dziury typu Heartbleed, nie jest w stanie rozszyfrować zapisanej wymiany danych, chyba że dla każdej sesji, spróbuje pozyskać klucz sesji (dużo trudniejsze, niż pozyskanie tylko klucza prywatnego)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Off The Record</h2>
+            <ul>
+                <li>Popularna ostatnio metoda zapewniania poufności komunikacji</li>
+                <li>Klucz szyfrowania rozmowy jest ustalany poprzez schemat Diffiego-Hellmana, więc każda kolejna rozmowa jest szyfrowana innym kluczem (i złamanie klucza dla jednej rozmowy nie ujawnia innych rozmów)</li>
+                <li>Z każdą przekazaną wiadomością, przekazywane są dane niezbędne, do sfabrykowania poprzednio wymienionej wiadomości w rozmowie - dzięki temu, jeżeli ktoś złamie szyfr, który został ustalony dla danej rozmowy, ma też wszystkie dane, które umożliwiają mu sfałszowanie wszystkich poprzednich wiadomości</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Off The Record</h2>
+            <ul>
+                <li>To że ma możliwość sfałszowania tych wiadomości jest traktowane jako argument za tym, że nie ma dowodów, że wiadomość została wygenerowana przez Was</li>
+                <li>Ale atakujący, który ma adresy IP maszyn biorących w takiej komunikacji, zapis szyfrogramów oraz tekstu jawnego, ma niezaprzeczalne informacje, potwierdzające kto prowadził komunikacje</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Konfiguracja SSL/TLS</h2>
+            <ul>
+                <li>SSL jest beznadziejnie skomplikowaną biblioteką, niedoinwestowaną przez społeczność, kluczową dla bezpieczeństwa i wygodny cel ataku dla agend rządowych</li>
+                <li>Jednak jest to często jedyna dostępna opcja (i na razie nie widać lepszego kandydata) i mimo wszystko, dużo bezpieczniejsza, niż "domowa" kryptografia</li>
+                <li>Jeżeli możecie, wykorzystujcie swoje kanały dystrybucji, do dystrybucji certyfikatu serwera (zamiast polegać na CA)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Konfiguracja SSL/TLS</h2>
+            <ul>
+                <li>Pamiętajcie o Forward-Secrecy</li>
+                <li>Korzystajcie z dostępnych weryfikatorów konfiguracji (np. https://www.ssllabs.com/ssltest/), przy okazji sprawdzą też oprogramowanie pod kątem popularnych podatności</li>
+                <li>Korzystajcie z certyfikatów klienta SSL, tam gdzie macie możliwość - są lepsze niż hasła</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Konfiguracja SSL/TLS</h2>
+            <ul>
+                <li>Korzystajcie z zalecen wyżej, np.: <pre style="font-size: 0.75em;"><code>SSLCipherSuite 
+        ECDHE-RSA-AES256-SHA:
+        ECDH-RSA-AES256-SHA:
+        DHE-RSA-AES256-SHA:
+        ECDHE-RSA-AES256-GCM-SHA384:
+        ECDHE-RSA-AES256-SHA384:
+        DHE-RSA-AES256-GCM-SHA384:
+        DHE-RSA-AES256-SHA256:
+        ECDH-RSA-AES256-GCM-SHA384:
+        ECDH-RSA-AES256-SHA384</code></pre></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Ćwiczenie - łamanie szyfru</h2>
+            <ul>
+                <li>W arkuszu LibreOffice Calc (http://github.com/prezentacja-2015-kryptografia/zadanie szyfrowe.ods) znajdziecie 10 szyfrogramow</li>
+                <li>Do zaszyfrowania wiadomości użyto Szyfru z kluczem jednorazowym (przy czym wykorzystano ten sam klucz 10 razy)</li>
+                <li>Szyfrowanie wykorzystuje operacje XOR do zaszyfrowania (n-ty bajt tekstu jawnego jest XOR-owany n-tym bajtem klucza)</li>
+                <li>Zadanie - rozszyfrowanie tekstów</li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div>
+            <h2>Ćwiczenie - łamanie szyfru</h2>
+            <ul>
+                <li>Podpowiedzi:
+                    <ul>
+                        <li><code>szyfrogram_1 XOR szyfrogram_2 = ?</code></li>
+                        <li><code>dowolny znak XOR ' ' = ?</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide shout">
+        <div>
+            <h2>Pytania?</h2>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Literatura</h2>
+            <ul>
+                <li><a href="https://www.bsdcan.org/2010/schedule/attachments/135_crypto1hr.pdf">Colin Percival - Everything you need to know about cryptography in 1 hour</a> oraz <a href="https://www.youtube.com/watch?v=jzY3m5Kv7Y8">video</a></li>
+                <li><a href="https://www.coursera.org/course/crypto">Dan Boneh - Crypto I</a> oraz <a href="https://www.coursera.org/course/crypto2">Crypto II</a></li>
+                <li><a href="http://wiktorn.github.io/prezentacja-2015-kryptografia/">Ta prezentacja :-)</a></li>
+            </ul>
+        </div>
+    </section>
+    Literatura:
+    https://www.bsdcan.org/2010/schedule/attachments/135_crypto1hr.pdf
+
+    <p class="badge"><a href="https://github.com/wiktorn">Fork me on Github</a></p>
+
+    <div class="progress">
+        <div></div>
+    </div>
+
+    <script src="shower/shower.min.js"></script>
+</body>
+</html>
+
