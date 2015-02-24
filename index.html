@@ -326,7 +326,6 @@
         <div>
             <h2>Konfiguracja SSL/TLS</h2>
             <ul>
-                <li>Korzystajcie z zalecen wyżej, np.: <code>SSLCipherSuite ECDHE-RSA-AES256-SHA:ECDH-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA256:ECDH-RSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384</code></li>
                 <li>Pamiętajcie o Forward-Secrecy</li>
                 <li>Korzystajcie z dostępnych weryfikatorów konfiguracji (np. https://www.ssllabs.com/ssltest/), przy okazji sprawdzą też oprogramowanie pod kątem popularnych podatności</li>
                 <li>Korzystajcie z certyfikatów klienta SSL, tam gdzie macie możliwość - są lepsze niż hasła</li>
@@ -334,6 +333,23 @@
         </div>
     </section>
 
+    <section class="slide">
+        <div>
+            <h2>Konfiguracja SSL/TLS</h2>
+            <ul>
+                <li>Korzystajcie z zalecen wyżej, np.: <pre style="font-size: 0.75em;"><code>SSLCipherSuite 
+        ECDHE-RSA-AES256-SHA:
+        ECDH-RSA-AES256-SHA:
+        DHE-RSA-AES256-SHA:
+        ECDHE-RSA-AES256-GCM-SHA384:
+        ECDHE-RSA-AES256-SHA384:
+        DHE-RSA-AES256-GCM-SHA384:
+        DHE-RSA-AES256-SHA256:
+        ECDH-RSA-AES256-GCM-SHA384:
+        ECDH-RSA-AES256-SHA384</code></pre></li>
+            </ul>
+        </div>
+    </section>
 
     <section class="slide">
         <div>
@@ -354,8 +370,8 @@
             <ul>
                 <li>Podpowiedzi:
                     <ul>
-                        <li>szyfrogram_1 XOR szyfrogram_2 = ?</li>
-                        <li>dowolny znak XOR ' ' = ?</li>
+                        <li><code>szyfrogram_1 XOR szyfrogram_2 = ?</code></li>
+                        <li><code>dowolny znak XOR ' ' = ?</code></li>
                     </ul>
                 </li>
             </ul>
