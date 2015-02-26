@@ -23,7 +23,7 @@
     <section class="slide front-page">
         <div>
             <div class="logo">
-                <img src="pictures/front.png">
+                <img src="https://www.pzu.pl/portal-theme/images/pzu-custom/logo4.png">
             </div>
             <div class="content">
                 <h2>Podstawy kryptografii dla każdego</h2>
@@ -142,6 +142,7 @@
                         <li>potrzeba 2<sup>n</sup> czasu by wygenerować parę {y, MAC(k, y)}, nawet znając pary {x, MAC(k, x)}</li>
                      </ul>
                 </li>
+                <li>Działanie MAC opiera się o znany obu stronom (nadawca i odbioraca/weryfikator) sekretny klucz, który należy wcześniej wymienić bezpiecznym kanałem</li>
                 <li>Używajcie HMAC-SHA256</li>
             </ul>
         </div>
@@ -180,7 +181,7 @@
                 <li>Szyfr blokowy operuje na blokach danych (np. 16 bajtów)</li>
                 <li>Funkcja szyfrująca - E(k, x) ma spełniać warunek, że znając {x, E(k, x)}, zgadnięcie {x', E(k, x')} jest zadaniem o złożoności 2<sup>n</sup>, gdzie n, to długość bloku w bitach</li>
                 <li>Do szyfrowania używajcie AES-256, Nie używajcie: blowfish, DES, 3DES</li>
-                <li>Nie używajcie szyfru blokowego saute, zawsze używajcie go w odpowiednim trybie</li>
+                <li>Nie używajcie szyfru blokowego sauté, zawsze używajcie go w odpowiednim trybie</li>
             </ul>
         </div>
     </section>
@@ -189,9 +190,9 @@
         <div>
             <h2>Tryby szyfrów blokowych</h2>
             <ul>
-                <li>Tryb szyfrowania mówi o tym, jak stosować szyfr blokowy dla długich strumieni danych</li>
+                <li>Tryb szyfrowania mówi o tym, jak stosować szyfr blokowy dla strumieni danych</li>
                 <li>Jego zadaniem jest zapewnienie, by dopasować strumień danych do długości bloku (padding), oraz zapewnić, by taki sam ciąg danych, nie został zaszyfrowany do takiego samego szyfrogramu</li>
-                <li>Niektóre tryby wymagają podania IV (Initialization Vector) - jest to jeden z gwarantów bezpieczeństwa szyfrogramu, nie może być stały, natomiast nie jest wymagane, by pozostał tajny</li>
+                <li>Niektóre tryby wymagają podania IV (Initialization Vector) lub "nounce" - jest to jeden z gwarantów bezpieczeństwa szyfrogramu, nie może być stały, natomiast nie jest wymagane, by pozostał tajny</li>
             </ul>
         </div>
     </section>
@@ -200,10 +201,26 @@
         <div>
             <h2>Tryby szyfrów blokowych</h2>
             <ul>
-                <li>Korzystając z szyfru blokowego, korzystajcie z trybu CTR (Counter Mode)</li>
+                <li>Korzystając z szyfru blokowego, korzystajcie z trybu CTR (Counter Mode), pozwala na odszyfrowanie fragmentami, zrównloeglanie działania itp.</li>
                 <li>Korzystajcie z HMAC-SHA256, by zapewnić integralność szyfrogramu</li>
                 <li>Zawsze weryfikujcie integralność danych, nim spróbujecie je zdeszyfrować, ochroni to przed wyciekiem informacji kanałem postronnym</li>
             </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div style="font-size: 0.75em;">
+            <h2>Szyfrowanie vs zapewnienie integralności</h2>
+            <ul>
+                <li>Do wyboru:
+                    <ul>
+                        <li>Encrypt-then-MAC (EtM) - szyfrujemy tekst jawny, wyliczamy MAC z szyfrogramu, przekazujemy szyfrogram + MAC (tak działa np. IPSEC)</li>
+                        <li>Encrypt-and-MAC (E&amp;M) - wyliczamy MAC z tekstu jawnego, szyfrujemy tekst jawny, przekazujemy szyfrogram + MAC (tak działa SSH)</li>
+                        <li>MAC-then-Encrypt (MtE) - wyliczamy MAC z tekstu jawnego, szyfrujemy tekst jawny oraz MAC, przekazujemy szyfrogram (tak działa SSL/TLS)</li>
+                    </ul>
+                 </li>
+                 <li>EtM pozwala na odrzucenie "podrobionych" wiadomości i nie wprowadzanie ich do biblioteki deszyfrującej. Dzięki temu zmniejsza się możliwości wycieku informacji kanałami postronnymi</li>
+             </ul>
         </div>
     </section>
 
@@ -353,6 +370,17 @@
 
     <section class="slide">
         <div>
+            <h2>Bilbioteki</h2>
+            <ul>
+                <li>Najpopularniejsze - OpenSSL, ale też wbudowane w Java JDK</li>
+                <li>NaCl - podstawowe konstrukcje kryptograficzne, zaimplementowane m.in. przez Daniela J. Bernstein'a (djb) - w odpowiedzi na skomplikowanie kodu OpenSSL</li>
+                <li>libsodium - fork NaCl, z przystępniejszą dokumentacją</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
             <h2>Ćwiczenie - łamanie szyfru</h2>
             <ul>
                 <li>W arkuszu LibreOffice Calc (http://github.com/prezentacja-2015-kryptografia/zadanie szyfrowe.ods) znajdziecie 10 szyfrogramow</li>
@@ -390,6 +418,7 @@
             <ul>
                 <li><a href="https://www.bsdcan.org/2010/schedule/attachments/135_crypto1hr.pdf">Colin Percival - Everything you need to know about cryptography in 1 hour</a> oraz <a href="https://www.youtube.com/watch?v=jzY3m5Kv7Y8">video</a></li>
                 <li><a href="https://www.coursera.org/course/crypto">Dan Boneh - Crypto I</a> oraz <a href="https://www.coursera.org/course/crypto2">Crypto II</a></li>
+                <li><a href="https://www.youtube.com/watch?v=fwcl17Q0bpk">NSA Operation ORCHESTRA: Annual Status Report</a></li>
                 <li><a href="http://wiktorn.github.io/prezentacja-2015-kryptografia/">Ta prezentacja :-)</a></li>
             </ul>
         </div>
