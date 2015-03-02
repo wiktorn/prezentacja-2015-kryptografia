@@ -51,7 +51,7 @@
             <h2>Historia kryptografii</h2>
             <ul>
                 <li>Szyfr Cezara - jedna z pierwszych metod szyfrowania opierająca się na stałej tabeli podstawieniowej</li>
-                <li>Szyfr z kluczem jednorazowym - zaproponowany w 1917r. Wymaga klucza dłuższego niż wiadomosć, klucza można użyć tylko raz</li>
+                <li>Szyfr z kluczem jednorazowym - zaproponowany w 1917r. Wymaga klucza dłuższego niż wiadomość, klucza można użyć tylko raz</li>
                 <li>Enigma - złożenie wielu (4-8) tablic podstawieniowych, przesuwanych co literę</li>
                 <li>Ostatnie 40 lat to dynamiczny rozwój kryptografii (w tym również teorii kryptografii)</li>
             </ul>
@@ -98,10 +98,10 @@
             <ul>
                 <li><strong>tekst jawny</strong> - dane, które chcemy chronić</li>
                 <li><strong>szyfrogram, kryptogram</strong> - dane, które atakujący może zobaczyć (a nawet - modyfikować)</li>
-                <li><strong>klucz szyfru</strong> - informacja slużąca do zamiany tekstu jawnego w szyfrogram i vice versa</li>
+                <li><strong>klucz szyfru</strong> - informacja służąca do zamiany tekstu jawnego w szyfrogram i vice versa</li>
                 <li><strong>symetryczna kryptografia</strong> - taka dziedzina algorytmów szyfrujących, w których klucz do szyfrowania i odszyfrowania jest taki sam</li>
-                <li><strong>asymetryczna kryptografia</strong> - taka dziedzina algorytmów szyfrująych, w których klucz do szyfrowania i odszyfrowania jest inny</li>
-                <li>idealne komponenty kryptografii nie istnieją, ale wystarcza nam nieodróżnialność danego komponentu od ideału przy prawdopodobieństiwe rzędu 1 / 2<sup>128</sup></li>
+                <li><strong>asymetryczna kryptografia</strong> - taka dziedzina algorytmów szyfrujących, w których klucz do szyfrowania i odszyfrowania jest inny</li>
+                <li>idealne komponenty kryptografii nie istnieją, ale wystarcza nam nieodróżnialność danego komponentu od ideału przy prawdopodobieństwie rzędu 1 / 2<sup>128</sup></li>
             </ul>
         </div>
     </section>
@@ -125,7 +125,7 @@
         <div>
             <h2>Funkcje hashujące</h2>
             <ul>
-                <li>Hashowanie haseł jako metoda ochrony ich przed ich odtworzeniem nie jest rozwiązaniem - obecne procesory w kartach graficznych są w stanie liczyć ~milarda H(x) na sekundę</li>
+                <li>Hashowanie haseł jako metoda ochrony ich przed ich odtworzeniem nie jest rozwiązaniem - obecne procesory w kartach graficznych są w stanie liczyć ~miliarda H(x) na sekundę</li>
                 <li>Wykorzystanie funkcji hashującej do zapewnienia integralności - to też zły pomysł - chyba że macie bezpieczny kanał, którym możecie przekazać wartość funkcji hashującej</li>
                 <li>Jako funkcji hashujących używajcie: SHA-256</li>
                 <li>Nie używajcie: MD2, MD4, MD5, SHA-1, RIPEMD</li>
@@ -142,7 +142,7 @@
                         <li>potrzeba 2<sup>n</sup> czasu by wygenerować parę {y, MAC(k, y)}, nawet znając pary {x, MAC(k, x)}</li>
                      </ul>
                 </li>
-                <li>Działanie MAC opiera się o znany obu stronom (nadawca i odbioraca/weryfikator) sekretny klucz, który należy wcześniej wymienić bezpiecznym kanałem</li>
+                <li>Działanie MAC opiera się o znany obu stronom (nadawca i odbiorca/weryfikator) sekretny klucz, który należy wcześniej wymienić bezpiecznym kanałem</li>
                 <li>Używajcie HMAC-SHA256</li>
             </ul>
         </div>
@@ -201,7 +201,7 @@
         <div>
             <h2>Tryby szyfrów blokowych</h2>
             <ul>
-                <li>Korzystając z szyfru blokowego, korzystajcie z trybu CTR (Counter Mode), pozwala na odszyfrowanie fragmentami, zrównloeglanie działania itp.</li>
+                <li>Korzystając z szyfru blokowego, korzystajcie z trybu CTR (Counter Mode), pozwala na odszyfrowanie fragmentami, zrównoleglanie działania itp.</li>
                 <li>Korzystajcie z HMAC-SHA256, by zapewnić integralność szyfrogramu</li>
                 <li>Zawsze weryfikujcie integralność danych, nim spróbujecie je zdeszyfrować, ochroni to przed wyciekiem informacji kanałem postronnym</li>
             </ul>
@@ -226,7 +226,7 @@
 
     <section class="slide">
         <div>
-            <h2>Asymteryczne zapewnienie integralności</h2>
+            <h2>Asymetryczne zapewnienie integralności</h2>
             <ul>
                 <li>Wykorzystuje dwa klucze - jeden do podpisu (szyfrowanie), drugi do weryfikacji (rozszyfrowanie). Klucz weryfikacyjny pozwala zweryfikować, czy wiadomość została podpisana poprzez powiązany z kluczem weryfikacyjnym klucz do podpisu</li>
                 <li>Asymetryczne zapewnienie integralności jest uznawane za złamane, gdy za pomocą klucza weryfikacyjnego można podpisać dowolną wiadomość, nawet jeśli atakujący ma możliwość uzyskania podpisu dowolnie wybranej wiadomości (różnej od tej, którą atakuje)</li>
@@ -236,7 +236,7 @@
 
     <section class="slide">
         <div>
-            <h2>Asymteryczne zapewnienie integralności</h2>
+            <h2>Asymetryczne zapewnienie integralności</h2>
             <ul>
                 <li>Używajcie RSASSA-PSS, 2048-bitowych kluczy, publicznego wykładnika 65537 oraz SHA256</li>
                 <li>Nie używajcie: tego samego klucza do zapewnienie integralności i szyfrowania, DSA, podpisów z wykorzystaniem krzywych eliptycznych</li>
@@ -246,7 +246,7 @@
 
     <section class="slide">
         <div>
-            <h2>Asymteryczne szyfrowanie</h2>
+            <h2>Asymetryczne szyfrowanie</h2>
             <ul>
                 <li>Wykorzystuje dwa klucze - jeden do szyfrowania (klucz publiczny), drugi do rozszyfrowania (klucz prywatny) - odwrotnie niż w przypadku integralności!</li>
                 <li>Zwykle asymetryczna kryptografia jest kosztowna obliczeniowo i ma ograniczenia na długość wiadomości</li>
@@ -256,7 +256,7 @@
 
     <section class="slide">
         <div>
-            <h2>Asymteryczne szyfrowanie</h2>
+            <h2>Asymetryczne szyfrowanie</h2>
             <ul>
                 <li>Używajcie RSAES-OAEP, 2048-bitowych kluczy, publicznego wykładnika 65537, SHA256 oraz MFG1-SHA256</li>
                 <li>Generujcie losowy klucz do szyfrowania blokowego, zaszyfrujcie nim wiadomość, przekażcie wiadomość a klucz do jej rozszyfrowania zaszyfrujcie za pomocą szyfrowania asymetrycznego (tak m.in. działa SSL/TLS)</li>
@@ -269,7 +269,7 @@
             <h2>Hasła</h2>
             <ul>
                 <li>Hasła, frazy (takie, które ma pamiętać człowiek) są często wykorzystywane do identyfikacji, a czasem do szyfrowania i zapewnienia integralności</li>
-                <li>Unikajcie haseł, gdzie sie da</li>
+                <li>Unikajcie haseł, gdzie się da</li>
                 <li>Używajcie Key Derivation Function, by zamienić hasło w klucz najwcześniej jak się da</li>
                 <li>Używajcie funkcji scrypt, PBKDF2 lub bcrypt do zamiany hasła w klucz</li>
             </ul>
@@ -354,7 +354,7 @@
         <div>
             <h2>Konfiguracja SSL/TLS</h2>
             <ul>
-                <li>Korzystajcie z zalecen wyżej, np.: <pre style="font-size: 0.75em;"><code>SSLCipherSuite 
+                <li>Korzystajcie z zaleceń wyżej, np.: <pre style="font-size: 0.75em;"><code>SSLCipherSuite 
         ECDHE-RSA-AES256-SHA:
         ECDH-RSA-AES256-SHA:
         DHE-RSA-AES256-SHA:
@@ -370,7 +370,7 @@
 
     <section class="slide">
         <div>
-            <h2>Bilbioteki</h2>
+            <h2>Biblioteki</h2>
             <ul>
                 <li>Najpopularniejsze - OpenSSL, ale też wbudowane w Java JDK</li>
                 <li>NaCl - podstawowe konstrukcje kryptograficzne, zaimplementowane m.in. przez Daniela J. Bernstein'a (djb) - w odpowiedzi na skomplikowanie kodu OpenSSL</li>
@@ -383,7 +383,7 @@
         <div>
             <h2>Ćwiczenie - łamanie szyfru</h2>
             <ul>
-                <li>W arkuszu LibreOffice Calc (http://github.com/prezentacja-2015-kryptografia/zadanie szyfrowe.ods) znajdziecie 10 szyfrogramow</li>
+                <li>W arkuszu LibreOffice Calc (http://github.com/prezentacja-2015-kryptografia/zadanie szyfrowe.ods) znajdziecie 10 szyfrogramów</li>
                 <li>Do zaszyfrowania wiadomości użyto Szyfru z kluczem jednorazowym (przy czym wykorzystano ten sam klucz 10 razy)</li>
                 <li>Szyfrowanie wykorzystuje operacje XOR do zaszyfrowania (n-ty bajt tekstu jawnego jest XOR-owany n-tym bajtem klucza)</li>
                 <li>Zadanie - rozszyfrowanie tekstów</li>
